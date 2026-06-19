@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+actor "SIEM" as SIEM
+actor "LLM Externa" as LLM
+actor "Analista de SOC" as Analista
+actor "Líder de SOC /\nGerente de Segurança" as Gerente
+actor "Administrador do Sistema" as Admin
+rectangle "SATA" {
+    usecase "Processar Alertas" as UC1
+    usecase "Gerenciar Alertas" as UC2
+    usecase "Consultar\nHistórico" as UC3
+    usecase "Gerenciar\nRelatórios" as UC4
+    usecase "Configurar Regras\n de Filtragem" as UC6
+    usecase "Gerenciar Usuários\n e Permissões" as UC7
+}
+SIEM --> UC1
+LLM --> UC1
+Analista --> UC2
+Analista --> UC3
+Gerente --> UC4
+Admin --> UC6
+Admin --> UC7
+Admin --> UC3
+
+Gerente --|> Analista
+@enduml
