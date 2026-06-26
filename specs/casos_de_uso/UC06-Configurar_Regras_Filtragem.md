@@ -1,27 +1,20 @@
-# Especificação Textual dos Casos de Uso – SATA
+# UC06 – Configurar Regras de Filtragem
 
-## UC05 – Configurar Regras de Filtragem
+## Identificação
+- **Código:** UC06
+- **Nome:** Configurar Regras de Filtragem
 
-### Identificação
-
-**Código:** UC05  
-**Nome:** Configurar Regras de Filtragem
-
-### Objetivo
-
+## Objetivo
 Permitir ao Administrador do Sistema definir regras para filtrar, descartar ou direcionar alertas antes do processamento pela IA.
 
-### Atores
-
+## Atores
 - Administrador do Sistema
 
-### Pré-condições
-
+## Pré-condições
 - O usuário deve estar autenticado com perfil de administrador.
 - O sistema deve permitir acesso ao módulo de regras.
 
-### Fluxo Principal
-
+## Fluxo Principal
 1. O administrador acessa o módulo de regras de filtragem.
 2. O sistema exibe as regras já cadastradas.
 3. O administrador escolhe criar, editar ou remover uma regra.
@@ -31,8 +24,7 @@ Permitir ao Administrador do Sistema definir regras para filtrar, descartar ou d
 7. O administrador confirma o salvamento.
 8. O sistema armazena a nova configuração.
 
-### Dados da Regra
-
+## Dados da Regra
 - Nome da regra
 - Descrição
 - Severidade mínima ou máxima
@@ -41,19 +33,16 @@ Permitir ao Administrador do Sistema definir regras para filtrar, descartar ou d
 - Padrão conhecido
 - Status ativo/inativo
 
-### Fluxos Alternativos
+## Fluxos Alternativos
 
-#### FA01 – Regra inválida
-
+### FA01 – Regra inválida
 1. O administrador informa critérios inconsistentes.
 2. O sistema exibe mensagem de erro.
 3. A regra não é salva.
 
-### Pós-condições
-
+## Pós-condições
 - As regras de filtragem ficam atualizadas.
 - Os novos critérios passam a ser considerados no processamento dos alertas.
 
-### Requisitos Relacionados
-
+## Requisitos Relacionados
 - RF002
