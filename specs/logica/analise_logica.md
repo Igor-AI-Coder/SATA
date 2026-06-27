@@ -1,3 +1,4 @@
+```mermaid
 classDiagram
     %% Superclasse de Usuários
     class Usuario {
@@ -114,3 +115,4 @@ classDiagram
     Analise_IA --> Notificacao : gera sumário
     Analista_de_SOC --> Alerta : analisa e valida
     Analista_de_SOC --> Registro_de_Historico
+    ```
