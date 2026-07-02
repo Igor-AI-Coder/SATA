@@ -11,16 +11,20 @@ classDiagram
     }
 
     %% Subclasses (Herança)
+    class Lider_de_SOC {
+        +analisar_alerta()
+        +validar_alerta()
+        +descartar_alerta()
+        +corrigir_classificacao()
+        +visualizar_relatorios()
+        +exportar_relatorios()
+    }
+
     class Analista_de_SOC {
         +analisar_alerta()
         +validar_alerta()
         +descartar_alerta()
         +corrigir_classificacao()
-    }
-
-    class Lider_de_SOC {
-        +visualizar_relatorios()
-        +exportar_relatorios()
     }
 
     class Administrador_do_Sistema {
@@ -31,8 +35,8 @@ classDiagram
         +configurar_regra()
     }
 
-    Usuario <|-- Analista_de_SOC
     Usuario <|-- Lider_de_SOC
+    Usuario <|-- Analista_de_SOC
     Usuario <|-- Administrador_do_Sistema
 
     %% Classes de Negócio
@@ -111,8 +115,11 @@ classDiagram
 
     %% Relacionamentos do Sistema SATA
     Administrador_do_Sistema --> Regra_de_Filtragem : gerencia
+    Lider_de_SOC --> Alerta : analisa e valida
+    Analista_de_SOC --> Alerta : analisa e valida
     Alerta --> Analise_IA : submetido a
     Analise_IA --> Notificacao : gera sumário
-    Analista_de_SOC --> Alerta : analisa e valida
-    Analista_de_SOC --> Registro_de_Historico
-    ```
+    Lider_de_SOC --> Relatorio : visualiza e exporta
+    Analista_de_SOC --> Registro_de_Historico : registra decisão
+    Registro_de_Historico --> Alerta : refere-se a
+```
