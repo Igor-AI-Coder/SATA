@@ -1,0 +1,31 @@
+stateDiagram-v2
+    direction TB
+    
+    [*] --> ReceberDadosCadastro : Início do método cadastrar_usuario()
+    
+    ReceberDadosCadastro --> IdentificarPerfilSolicitante : Verificar cargo do usuário conectado
+    
+    state if_perfil_autorizado <<choice>>
+    IdentificarPerfilSolicitante --> if_perfil_autorizado : É Administrador ou Líder de SOC?
+    
+    if_perfil_autorizado --> RetornarErroPermissao : [Não / É Analista de SOC]
+    RetornarErroPermissao --> [*] : Fim (Acesso Negado)
+    
+    if_perfil_autorizado --> ValidarCamposObrigatorios : [Sim]
+    
+    ValidarCamposObrigatorios --> ConsultarEmailExistente : Verificar se emailInstitucional existe no banco
+    
+    state if_email_duplicado <<choice>>
+    ConsultarEmailExistente --> if_email_duplicado : Email já cadastrado?
+    
+    if_email_duplicado --> RetornarErroEmail : [Sim]
+    RetornarErroEmail --> [*] : Fim (Falha: Usuário existente)
+    
+    if_email_duplicado --> InstanciarNovoUsuario : [Não]
+    
+    InstanciarNovoUsuario --> ConfigurarAtributos : Definir nome, email e cargo herdado
+    ConfigurarAtributos --> DefinirStatusInicial : Definir statusDeAcesso = "Ativo"
+    DefinirStatusInicial --> SalvarNoBancoDados : Persistir novo registro
+    
+    SalvarNoBancoDados --> RetornarSucessoCadastro : Emitir confirmação de sucesso
+    RetornarSucessoCadastro --> [*] : Fim do método
