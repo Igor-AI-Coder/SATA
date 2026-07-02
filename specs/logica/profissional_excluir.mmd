@@ -1,0 +1,33 @@
+flowchart TD
+
+    Start([Início]) --> ReceberID[Receber ID do Usuário para Exclusão]
+
+    ReceberID --> BuscarBD[Buscar Usuário na base de dados]
+    BuscarBD --> Existe{O Usuário<br>existe?}
+
+    Existe -- "Não" --> ErroNaoEncontrado[Retornar Erro: Usuário Inexistente]
+    ErroNaoEncontrado --> Fim([Fim])
+
+    Existe -- "Sim" --> IdentificarTipo{Subclasse<br>do Usuário:}
+
+    IdentificarTipo -- "AnalistaDeSOC" --> ValidarAnalista[Verificar se possui Alertas pendentes de análise]
+    ValidarAnalista --> PodeExcluirAnalista{Pode ser<br>excluído?}
+
+    IdentificarTipo -- "LiderDeSOC" --> ValidarLider[Verificar se é o único Líder do turno ativo]
+    ValidarLider --> PodeExcluirLider{Pode ser<br>excluído?}
+
+    IdentificarTipo -- "AdministradorDoSistema" --> ValidarAdmin[Verificar se é o último Admin do sistema]
+    ValidarAdmin --> PodeExcluirAdmin{Pode ser<br>excluído?}
+
+    PodeExcluirAnalista -- "Não" --> ErroDependencia[Retornar Erro: Usuário possui pendências ou violação de regras]
+    PodeExcluirLider -- "Não" --> ErroDependencia
+    PodeExcluirAdmin -- "Não" --> ErroDependencia
+    ErroDependencia --> Fim
+
+    PodeExcluirAnalista -- "Sim" --> ExecutarExclusao["Chamar método desativarConta() da Superclasse Usuario"]
+    PodeExcluirLider -- "Sim" --> ExecutarExclusao["Chamar método desativarConta() da Superclasse Usuario"]
+    PodeExcluirAdmin -- "Sim" --> ExecutarExclusao["Chamar método desativarConta() da Superclasse Usuario"]
+    
+    ExecutarExclusao["Chamar método desativarConta() da Superclasse Usuario"] --> RegistrarLog[Persistir Trilha de Auditoria no RegistroDeHistorico]
+    RegistrarLog --> RetornarSucesso[Retornar Mensagem de Sucesso]
+    RetornarSucesso --> Fim
