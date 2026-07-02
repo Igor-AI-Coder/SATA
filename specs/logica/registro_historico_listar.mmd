@@ -1,0 +1,13 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber critérios de listagem]
+
+    Receber --> Consultar[Buscar registros na base de dados]
+    Consultar --> Existe{Existem<br>registros?}
+
+    Existe -- "Não" --> Vazia[Retornar lista vazia]
+    Vazia --> Fim([Fim])
+
+    Existe -- "Sim" --> Ordenar[Ordenar registros por timestampDaAcao]
+    Ordenar --> Retornar[Retornar lista de registros]
+    Retornar --> Fim

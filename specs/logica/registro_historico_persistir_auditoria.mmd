@@ -1,0 +1,13 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber evento a auditar]
+
+    Receber --> Montar[Montar entrada de auditoria: ação, autor e timestamp]
+    Montar --> Integridade{Integridade dos<br>dados validada?}
+
+    Integridade -- "Não" --> Falha[Registrar falha de auditoria]
+    Falha --> Fim([Fim])
+
+    Integridade -- "Sim" --> Gravar[Gravar entrada em armazenamento imutável append-only]
+    Gravar --> Confirmar[Confirmar persistência da trilha]
+    Confirmar --> Fim

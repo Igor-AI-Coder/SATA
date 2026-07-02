@@ -1,0 +1,13 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber critérios: canal e período]
+
+    Receber --> Consultar[Buscar notificações na base de dados]
+    Consultar --> Existe{Há<br>notificações?}
+
+    Existe -- "Não" --> Vazia[Retornar lista vazia]
+    Vazia --> Fim([Fim])
+
+    Existe -- "Sim" --> Ordenar[Ordenar notificações por dataDeEnvio]
+    Ordenar --> Retornar[Retornar lista de notificações]
+    Retornar --> Fim

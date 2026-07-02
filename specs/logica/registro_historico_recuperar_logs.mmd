@@ -1,0 +1,17 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber critérios de filtro: período, tipo e autor]
+
+    Receber --> Valido{Filtros<br>válidos?}
+    Valido -- "Não" --> Erro[Retornar Erro: Filtro Inválido]
+    Erro --> Fim([Fim])
+
+    Valido -- "Sim" --> Consultar[Consultar histórico aplicando filtros]
+    Consultar --> Resultados{Há<br>resultados?}
+
+    Resultados -- "Não" --> Vazio[Retornar conjunto vazio]
+    Vazio --> Fim
+
+    Resultados -- "Sim" --> Formatar[Formatar logs recuperados]
+    Formatar --> Retornar[Retornar logs filtrados]
+    Retornar --> Fim

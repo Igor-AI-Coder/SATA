@@ -1,0 +1,12 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber identificador da notificação]
+
+    Receber --> Consultar[Buscar notificação na base de dados]
+    Consultar --> Existe{A notificação<br>foi encontrada?}
+
+    Existe -- "Não" --> Erro[Retornar Erro: Notificação Inexistente]
+    Erro --> Fim([Fim])
+
+    Existe -- "Sim" --> Retornar[Retornar notificação localizada]
+    Retornar --> Fim

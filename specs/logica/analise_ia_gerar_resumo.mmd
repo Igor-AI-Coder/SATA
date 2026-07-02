@@ -1,0 +1,13 @@
+flowchart TD
+
+    Start([Início]) --> Obter[Obter classificação e justificativa técnica]
+
+    Obter --> Disponivel{Análise processada<br>está disponível?}
+    Disponivel -- "Não" --> Abortar[Abortar e registrar pendência]
+    Abortar --> Fim([Fim])
+
+    Disponivel -- "Sim" --> Prompt[Montar prompt de sumarização]
+    Prompt --> Solicitar[Solicitar resumo executivo ao LLM]
+    Solicitar --> Formatar[Formatar resumoExecutivo]
+    Formatar --> Armazenar[Armazenar resumo na análise]
+    Armazenar --> Fim

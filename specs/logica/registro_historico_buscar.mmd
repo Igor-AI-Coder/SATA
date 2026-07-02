@@ -1,0 +1,12 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber identificador do registro]
+
+    Receber --> Consultar[Buscar registro na base de dados]
+    Consultar --> Existe{O registro<br>foi encontrado?}
+
+    Existe -- "Não" --> Erro[Retornar Erro: Registro Inexistente]
+    Erro --> Fim([Fim])
+
+    Existe -- "Sim" --> Retornar[Retornar registro localizado]
+    Retornar --> Fim

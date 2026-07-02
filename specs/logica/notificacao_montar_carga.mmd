@@ -1,0 +1,17 @@
+flowchart TD
+
+    Start([Início]) --> Obter[Obter resumoExecutivo e dados da análise]
+
+    Obter --> Canal{Qual o canal<br>de destino?}
+    Canal -- "Slack" --> Slack[Montar payload no formato Slack]
+    Canal -- "Teams" --> Teams[Montar payload no formato Teams]
+
+    Slack --> Preencher[Preencher payloadDaMensagem]
+    Teams --> Preencher
+
+    Preencher --> Valido{Payload é<br>estruturalmente válido?}
+    Valido -- "Não" --> Erro[Registrar erro de montagem]
+    Erro --> Fim([Fim])
+
+    Valido -- "Sim" --> Retornar[Retornar payloadDaMensagem]
+    Retornar --> Fim

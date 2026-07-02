@@ -1,0 +1,26 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber logs brutos do Alerta]
+    Receber --> Normalizar[Normalizar e pré-processar logs]
+
+    Normalizar --> Valido{Logs válidos<br>e suficientes?}
+    Valido -- "Não" --> Inconclusiva[Marcar análise como inconclusiva]
+    Inconclusiva --> Fim([Fim])
+
+    Valido -- "Sim" --> Enviar[Enviar logs ao modelo LLM]
+
+    Enviar --> Fork[/Fork: processamento paralelo/]
+    Fork --> Classificar[Classificar evento: VP, FP, VN ou FN]
+    Fork --> Justificar[Extrair justificativa técnica]
+    Classificar --> Join[/Join: sincronizar resultados/]
+    Justificar --> Join
+
+    Join --> Consolidar[Consolidar classificação e justificativa]
+    Consolidar --> Confianca{Confiança acima<br>do limite mínimo?}
+
+    Confianca -- "Não" --> Revisar[Sinalizar necessidade de revisão humana]
+    Revisar --> ArmazenarParcial[Armazenar resultado parcial]
+    ArmazenarParcial --> Fim
+
+    Confianca -- "Sim" --> Armazenar[Armazenar resultado da análise]
+    Armazenar --> Fim

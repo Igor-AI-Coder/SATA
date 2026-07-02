@@ -1,0 +1,13 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber canal de destino e conteúdo da análise]
+
+    Receber --> Valido{Canal de destino<br>é válido?}
+    Valido -- "Não" --> Erro[Retornar Erro: Canal Inválido]
+    Erro --> Fim([Fim])
+
+    Valido -- "Sim" --> Instanciar[Montar objeto Notificacao]
+    Instanciar --> Data[Definir dataDeEnvio]
+    Data --> Salvar[Persistir notificação na base de dados]
+    Salvar --> Sucesso[Retornar confirmação de inclusão]
+    Sucesso --> Fim

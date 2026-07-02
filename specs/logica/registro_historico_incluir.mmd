@@ -1,0 +1,13 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber dados da decisão tomada]
+
+    Receber --> Valido{Campos obrigatórios<br>preenchidos?}
+    Valido -- "Não" --> Erro[Retornar Erro: Dados Incompletos]
+    Erro --> Fim([Fim])
+
+    Valido -- "Sim" --> Timestamp[Gerar timestampDaAcao]
+    Timestamp --> Instanciar[Montar objeto RegistroDeHistorico]
+    Instanciar --> Salvar[Persistir registro na base de dados]
+    Salvar --> Sucesso[Retornar confirmação de inclusão]
+    Sucesso --> Fim

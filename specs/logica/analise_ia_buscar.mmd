@@ -1,0 +1,12 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber identificador da análise ou do Alerta]
+
+    Receber --> Consultar[Buscar análise na base de dados]
+    Consultar --> Existe{A análise<br>foi encontrada?}
+
+    Existe -- "Não" --> Erro[Retornar Erro: Análise Inexistente]
+    Erro --> Fim([Fim])
+
+    Existe -- "Sim" --> Retornar[Retornar análise localizada]
+    Retornar --> Fim

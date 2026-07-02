@@ -1,0 +1,14 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber dados da análise e referência ao Alerta]
+
+    Receber --> Existe{O Alerta<br>associado existe?}
+
+    Existe -- "Não" --> Erro[Retornar Erro: Alerta Inexistente]
+    Erro --> Fim([Fim])
+
+    Existe -- "Sim" --> Instanciar[Instanciar objeto AnaliseIA]
+    Instanciar --> Configurar[Definir classificacaoSugerida, justificativaTecnica e resumoExecutivo]
+    Configurar --> Salvar[Persistir análise na base de dados]
+    Salvar --> Sucesso[Retornar confirmação de inclusão]
+    Sucesso --> Fim

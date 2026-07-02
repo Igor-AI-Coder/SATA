@@ -1,0 +1,26 @@
+flowchart TD
+
+    subgraph SATA["Sistema SATA"]
+        Start([Início]) --> Pronto{Payload já<br>está montado?}
+        Pronto -- "Não" --> Montar[Executar montarCargaUtil]
+        Montar --> Enviar[Enviar requisição ao webhook]
+        Pronto -- "Sim" --> Enviar
+    end
+
+    subgraph EXT["Serviço Externo — Slack / Teams"]
+        Enviar --> Processar[Receber e processar requisição]
+        Processar --> Status[Retornar código de status HTTP]
+    end
+
+    subgraph SATA2["Sistema SATA"]
+        Status --> Sucesso{Envio bem-sucedido<br>HTTP 2xx?}
+        Sucesso -- "Sim" --> Atualizar[Atualizar dataDeEnvio]
+        Atualizar --> Registrar[Registrar sucesso da notificação]
+        Registrar --> Fim([Fim])
+
+        Sucesso -- "Não" --> Tentativas{Há tentativas<br>restantes?}
+        Tentativas -- "Sim" --> Aguardar[Aguardar e reenviar]
+        Aguardar --> Enviar
+        Tentativas -- "Não" --> Falha[Registrar falha de envio]
+        Falha --> Fim
+    end
