@@ -1,0 +1,16 @@
+flowchart TD
+
+A([Início]) --> B[Receber identificador da regra]
+B --> C[Consultar regra cadastrada]
+
+C --> D{Regra encontrada?}
+D -- Não --> E[Informar que a regra não existe]
+E --> Z([Fim])
+
+D -- Sim --> F{Regra está vinculada<br>a alertas ativos?}
+F -- Sim --> G[Impedir exclusão: retornar erro de dependência]
+G --> Z
+
+F -- Não --> H[Excluir regra da base de dados]
+H --> I[Confirmar exclusão da regra]
+I --> Z

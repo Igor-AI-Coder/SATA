@@ -1,0 +1,20 @@
+flowchart TD
+
+    Start([Início]) --> Receber[Receber nova classificação e justificativa humana do analista]
+
+    Receber --> Existe{Análise associada<br>está disponível?}
+    Existe -- "Não" --> Erro[Retornar Erro: Análise Inexistente]
+    Erro --> Fim([Fim])
+
+    Existe -- "Sim" --> Comparar[Comparar nova classificação com classificacaoSugerida atual]
+    Comparar --> Mudou{A classificação<br>foi alterada?}
+
+    Mudou -- "Não" --> SemMudanca[Encerrar sem alterações]
+    SemMudanca --> Fim
+
+    Mudou -- "Sim" --> Atualizar[Atualizar classificacaoSugerida]
+    Atualizar --> Justificar[Registrar justificativa da correção]
+    Justificar --> Persistir[Persistir análise corrigida na base de dados]
+    Persistir --> Auditar[Registrar decisão no RegistroDeHistorico]
+    Auditar --> Confirmar[Retornar confirmação da correção]
+    Confirmar --> Fim
