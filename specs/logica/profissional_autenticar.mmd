@@ -1,0 +1,38 @@
+stateDiagram-v2
+    direction TB
+
+    [*] --> IniciarAutenticacao
+    
+    IniciarAutenticacao : Receber credenciais de acesso do usuario
+    IniciarAutenticacao --> BuscarUsuario
+
+    BuscarUsuario : Buscar usuario pelo emailInstitucional na base de dados
+    BuscarUsuario --> UsuarioExiste
+
+    state UsuarioExiste <<choice>>
+    
+    UsuarioExiste --> RetornarErroNaoEncontrado : Nao
+    RetornarErroNaoEncontrado : Retornar false Usuario nao encontrado
+    
+    UsuarioExiste --> ValidarStatusESenha : Sim
+    
+    ValidarStatusESenha : Validar credenciais e verificar se statusDeAcesso esta ativo
+    ValidarStatusESenha --> CredenciaisValidas
+
+    state CredenciaisValidas <<choice>>
+    
+    CredenciaisValidas --> RetornarErroAcesso : Nao
+    RetornarErroAcesso : Retornar false Acesso negado ou conta inativa
+    
+    CredenciaisValidas --> RegistrarSessao : Sim
+    
+    RegistrarSessao : Registrar sessao do usuario
+    RegistrarSessao --> RetornarSucesso
+    
+    RetornarSucesso : Retornar true
+
+    RetornarErroNaoEncontrado --> Fim
+    RetornarErroAcesso --> Fim
+    RetornarSucesso --> Fim
+    
+    Fim --> [*]
