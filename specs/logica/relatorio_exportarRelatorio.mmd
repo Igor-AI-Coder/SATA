@@ -1,0 +1,19 @@
+flowchart TD
+
+A([Início])
+B[Selecionar relatório]
+C[Escolher formato]
+D{Formato válido?}
+E[Gerar arquivo]
+F[Disponibilizar download]
+G[Exibir mensagem de erro]
+H([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> F
+F --> H
+D -- Não --> G
+G --> H

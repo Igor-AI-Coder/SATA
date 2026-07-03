@@ -118,7 +118,7 @@ classDiagram
         -dataInicial: Date
         -dataFinal: Date
         -formatoDeExportacao: String
-        +incluirRelatorio() void
+        +gerarRelatorio() void
         +buscarRelatorio() Relatorio
         +visualizarRelatorio() void
         +exportarRelatorio() void

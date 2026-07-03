@@ -1,0 +1,17 @@
+flowchart TD
+
+A([Início])
+B[Selecionar alerta]
+C[Verificar critérios de validação]
+D{Alerta válido?}
+E[Atualizar status - válido]
+F[Atualizar status - inválido]
+G([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> G
+D -- Não --> F
+F --> G

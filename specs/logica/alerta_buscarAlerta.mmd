@@ -1,0 +1,17 @@
+flowchart TD
+
+A([Início])
+B[Informar critérios de busca]
+C[Pesquisar alerta]
+D{Alerta encontrado?}
+E[Retornar alerta]
+F[Informar que não foi encontrado]
+G([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> G
+D -- Não --> F
+F --> G

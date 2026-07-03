@@ -1,0 +1,23 @@
+flowchart TD
+
+A([Início])
+B[Receber período e parâmetros]
+C[Validar parâmetros]
+D{Parâmetros válidos?}
+E[Buscar registros no histórico]
+F[Consolidar dados]
+G[Criar relatório]
+H[Retornar relatório]
+I[Exibir mensagem de erro]
+J([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> F
+F --> G
+G --> H
+H --> J
+D -- Não --> I
+I --> J

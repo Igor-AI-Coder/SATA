@@ -1,0 +1,19 @@
+flowchart TD
+
+A([Início])
+B[Selecionar alerta]
+C[Buscar alerta - buscarAlerta]
+D{Alerta encontrado?}
+E[Carregar dados do alerta]
+F[Exibir detalhes do alerta - exibirAlerta]
+G[Exibir mensagem de erro]
+H([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> F
+F --> H
+D -- Não --> G
+G --> H

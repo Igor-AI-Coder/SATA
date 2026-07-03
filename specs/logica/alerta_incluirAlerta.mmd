@@ -1,0 +1,17 @@
+flowchart TD
+
+A([Início])
+B[Preencher dados do alerta]
+C[Validar dados]
+D{Dados válidos?}
+E[Salvar alerta]
+F[Exibir mensagem de erro]
+G([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> G
+D -- Não --> F
+F --> G

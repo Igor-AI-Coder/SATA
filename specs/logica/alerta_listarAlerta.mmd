@@ -1,0 +1,17 @@
+flowchart TD
+
+A([Início])
+B[Solicitar lista de alertas]
+C[Buscar alertas no sistema]
+D{Existem alertas?}
+E[Exibir lista de alertas]
+F[Exibir mensagem de lista vazia]
+G([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> G
+D -- Não --> F
+F --> G

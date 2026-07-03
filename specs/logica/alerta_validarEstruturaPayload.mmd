@@ -1,0 +1,17 @@
+flowchart TD
+
+A([Início])
+B[Receber payload do alerta]
+C[Verificar campos obrigatórios]
+D{Estrutura válida?}
+E[Confirmar estrutura]
+F[Rejeitar payload]
+G([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> G
+D -- Não --> F
+F --> G

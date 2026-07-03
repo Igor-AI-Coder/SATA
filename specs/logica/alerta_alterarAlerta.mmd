@@ -1,0 +1,28 @@
+flowchart TD
+
+A([Início])
+B[Receber identificação do alerta]
+C[Localizar alerta]
+D{Alerta encontrado?}
+E[Receber novos dados]
+F[Validar alterações]
+G{Dados válidos?}
+H[Atualizar alerta]
+I[Salvar alterações]
+J[Exibir mensagem de sucesso]
+K[Exibir mensagem de erro]
+L([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+D -- Não --> K
+E --> F
+F --> G
+G -- Sim --> H
+H --> I
+I --> J
+J --> L
+G -- Não --> K
+K --> L

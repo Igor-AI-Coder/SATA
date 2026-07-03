@@ -1,0 +1,25 @@
+flowchart TD
+
+A([Início])
+B[Selecionar alerta]
+C[Verificar se o alerta atende às regras de filtragem]
+D{Aprovado?}
+E[Encaminhar logs para a IA]
+F[Aguardar resultado da análise]
+G[Associar análise ao alerta]
+H[Atualizar status do alerta]
+I[Encerrar processamento]
+J[Descartar alerta conforme regra]
+K([Fim])
+
+A --> B
+B --> C
+C --> D
+D -- Sim --> E
+E --> F
+F --> G
+G --> H
+H --> I
+I --> K
+D -- Não --> J
+J --> K
