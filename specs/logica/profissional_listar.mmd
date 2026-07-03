@@ -1,0 +1,39 @@
+stateDiagram-v2
+    direction TB
+
+    [*] --> IniciarListagem
+    
+    IniciarListagem : Solicitar listagem de usuários
+    IniciarListagem --> IdentificarSubclasse
+
+    IdentificarSubclasse : Identificar Subclasse do Solicitante\n(Quem está logado)
+    IdentificarSubclasse --> SubclasseSolicitante
+
+    state SubclasseSolicitante <<choice>>
+    
+    SubclasseSolicitante --> AnalistaDeSOC : AnalistaDeSOC
+    SubclasseSolicitante --> LiderDeSOC : LiderDeSOC
+    SubclasseSolicitante --> AdministradorDoSistema : AdministradorDoSistema
+
+    AnalistaDeSOC --> RetornarErroPermissao
+    LiderDeSOC --> RetornarErroPermissao
+    RetornarErroPermissao : Retornar Erro: Acesso Negado.\nApenas Administradores podem listar usuários.
+
+    AdministradorDoSistema --> ConsultarBanco
+    
+    ConsultarBanco : Consultar registros na base de dados
+    ConsultarBanco --> ExistemUsuarios
+
+    state ExistemUsuarios <<choice>>
+    
+    ExistemUsuarios --> RetornarListaVazia : Não possui registros
+    RetornarListaVazia : Retornar Lista Vazia\n(Nenhum usuário encontrado)
+    
+    ExistemUsuarios --> RetornarLista : Possui registros
+    RetornarLista : Construir e Retornar Lista\nde Usuários encontrados
+
+    RetornarErroPermissao --> Fim
+    RetornarListaVazia --> Fim
+    RetornarLista --> Fim
+    
+    Fim --> [*]
