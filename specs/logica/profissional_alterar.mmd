@@ -1,0 +1,57 @@
+stateDiagram-v2
+    direction TB
+
+    [*] --> IniciarAlteracao
+    
+    IniciarAlteracao : Receber dados para alteracao do usuario
+    IniciarAlteracao --> IdentificarSubclasse
+
+    IdentificarSubclasse : Identificar Subclasse do Solicitante
+    IdentificarSubclasse --> SubclasseSolicitante
+
+    state SubclasseSolicitante <<choice>>
+    
+    SubclasseSolicitante --> AnalistaDeSOC : AnalistaDeSOC
+    SubclasseSolicitante --> LiderDeSOC : LiderDeSOC
+    SubclasseSolicitante --> AdministradorDoSistema : AdministradorDoSistema
+
+    AnalistaDeSOC --> RetornarErroPermissao
+    LiderDeSOC --> RetornarErroPermissao
+    RetornarErroPermissao : Retornar Erro: Acesso Negado. Apenas Administradores podem alterar usuarios.
+
+    AdministradorDoSistema --> BuscarUsuario
+    
+    BuscarUsuario : Buscar usuario no banco de dados
+    BuscarUsuario --> UsuarioExiste
+
+    state UsuarioExiste <<choice>>
+    
+    UsuarioExiste --> RetornarErroNaoEncontrado : Nao
+    RetornarErroNaoEncontrado : Retornar Erro: Usuario nao encontrado
+    
+    UsuarioExiste --> ValidarNovosDados : Sim
+    
+    ValidarNovosDados : Validar novos dados do usuario
+    ValidarNovosDados --> DadosValidos
+
+    state DadosValidos <<choice>>
+    
+    DadosValidos --> RetornarErroValidacao : Nao
+    RetornarErroValidacao : Retornar Erro: Dados invalidos ou incorretos
+    
+    DadosValidos --> SalvarAlteracoes : Sim
+    
+    SalvarAlteracoes : Salvar alteracoes na base de dados
+    SalvarAlteracoes --> PersistirTrilha
+    
+    PersistirTrilha : Persistir Trilha de Auditoria no RegistroDeHistorico
+    PersistirTrilha --> RetornarSucesso
+    
+    RetornarSucesso : Retornar Mensagem de Sucesso
+
+    RetornarErroPermissao --> Fim
+    RetornarErroNaoEncontrado --> Fim
+    RetornarErroValidacao --> Fim
+    RetornarSucesso --> Fim
+    
+    Fim --> [*]
