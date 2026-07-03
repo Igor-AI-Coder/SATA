@@ -1,0 +1,11 @@
+flowchart TD
+
+A([Início]) --> B[Consultar regras cadastradas]
+
+B --> C{Existem regras?}
+
+C -- Sim --> D[Exibir lista de regras]
+C -- Não --> E[Informar que não existem regras cadastradas]
+
+D --> Z([Fim])
+E --> Z

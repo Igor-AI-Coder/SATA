@@ -1,0 +1,25 @@
+flowchart TD
+
+A([Início]) --> B[Receber alerta]
+
+B --> C{Severidade atende ao critério?}
+
+C -- Não --> X[Retornar Falso]
+
+C -- Sim --> D{Origem atende ao critério?}
+
+D -- Não --> X
+
+D -- Sim --> E{Categoria atende ao critério?}
+
+E -- Não --> X
+
+E -- Sim --> F{Padrão conhecido atende?}
+
+F -- Não --> X
+
+F -- Sim --> G[Retornar Verdadeiro]
+
+G --> Z([Fim])
+
+X --> Z

@@ -1,0 +1,21 @@
+flowchart TD
+
+A([Início]) --> B[Receber identificador da regra]
+B --> C[Localizar regra]
+
+C --> D{Regra encontrada?}
+
+D -- Não --> E[Informar que a regra não foi encontrada]
+E --> Z([Fim])
+
+D -- Sim --> F[Exibir dados atuais]
+F --> G[Receber alterações]
+
+G --> H{Dados válidos?}
+
+H -- Não --> I[Informar dados inválidos]
+I --> Z
+
+H -- Sim --> J[Salvar alterações]
+J --> K[Exibir confirmação]
+K --> Z

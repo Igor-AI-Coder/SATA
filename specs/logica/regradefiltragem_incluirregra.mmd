@@ -1,0 +1,19 @@
+flowchart TD
+
+A([Início]) --> B[Receber dados da nova regra]
+B --> C{Campos obrigatórios preenchidos?}
+
+C -- Não --> D[Informar erro de validação]
+D --> Z([Fim])
+
+C -- Sim --> E[Verificar se já existe regra com mesmo nome]
+
+E --> F{Regra já existe?}
+
+F -- Sim --> G[Exibir mensagem de erro]
+G --> Z
+
+F -- Não --> H[Salvar regra]
+H --> I[Definir status como Ativa]
+I --> J[Exibir confirmação de cadastro]
+J --> Z

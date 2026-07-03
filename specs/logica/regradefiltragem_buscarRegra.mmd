@@ -1,0 +1,12 @@
+flowchart TD
+
+A([Início]) --> B[Receber critério de busca]
+B --> C[Consultar regras cadastradas]
+
+C --> D{Regra encontrada?}
+
+D -- Sim --> E[Retornar regra]
+D -- Não --> F[Informar que nenhuma regra foi localizada]
+
+E --> Z([Fim])
+F --> Z

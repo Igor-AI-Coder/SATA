@@ -1,0 +1,16 @@
+flowchart TD
+
+A([Início]) --> B[Localizar regra]
+
+B --> C{Status atual é Ativa?}
+
+C -- Sim --> D[Alterar para Inativa]
+
+C -- Não --> E[Alterar para Ativa]
+
+D --> F[Salvar alteração]
+E --> F
+
+F --> G[Exibir confirmação]
+
+G --> Z([Fim])
