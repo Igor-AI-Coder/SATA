@@ -15,25 +15,24 @@ classDiagram
 
     %% ============================================================
     %% Subclasses (Herança / Generalização)
+    %% Analista e Líder não têm métodos próprios: as operações foram
+    %% realocadas para as classes DONAS dos dados (Especialista na Informação).
+    %% Eles participam do sistema por meio das ASSOCIAÇÕES.
     %% ============================================================
     class AnalistaDeSOC {
-        +analisarAlerta() void
-        +validarAlerta() void
-        +descartarAlerta() void
-        +corrigirClassificacao() void
     }
 
     class LiderDeSOC {
-        +visualizarRelatorios() void
-        +exportarRelatorios() void
     }
 
+    %% Administrador MANTÉM o gerenciamento de usuários: é uma ação
+    %% restrita por autorização e não pode subir para a superclasse
+    %% Usuario (seria herdada por todos os perfis).
     class AdministradorDoSistema {
         +incluirUsuario() void
         +alterarUsuario() void
         +excluirUsuario() void
         +listarUsuario() List
-        +configurarRegra() void
     }
 
     Usuario <|-- AnalistaDeSOC
@@ -77,6 +76,9 @@ classDiagram
         +exibirAlerta() void
         +validarEstruturaPayload() boolean
         +atualizarStatus() void
+        +analisarAlerta() void
+        +validarAlerta() void
+        +descartarAlerta() void
     }
 
     class AnaliseIA {
@@ -87,6 +89,7 @@ classDiagram
         +buscarAnalise() AnaliseIA
         +processarLogsAnaliticos() void
         +gerarResumoAutomatizado() String
+        +corrigirClassificacao() void
     }
 
     class Notificacao {
@@ -117,6 +120,8 @@ classDiagram
         -formatoDeExportacao: String
         +incluirRelatorio() void
         +buscarRelatorio() Relatorio
+        +visualizarRelatorio() void
+        +exportarRelatorio() void
         +calcularMttr() float
         +consolidarMetricasVolumetria() void
         +gerarArquivoFisico() void
