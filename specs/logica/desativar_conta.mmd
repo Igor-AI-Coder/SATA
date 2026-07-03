@@ -1,0 +1,33 @@
+stateDiagram-v2
+    direction TB
+
+    [*] --> IniciarDesativacao
+    
+    IniciarDesativacao : Receber solicitacao para desativar conta
+    IniciarDesativacao --> VerificarStatusAtual
+
+    VerificarStatusAtual : Verificar statusDeAcesso atual do usuario
+    VerificarStatusAtual --> ContaAtiva
+
+    state ContaAtiva <<choice>>
+    
+    ContaAtiva --> RetornarErroInativa : Nao
+    RetornarErroInativa : Retornar Erro Conta ja encontra-se inativa
+    
+    ContaAtiva --> AlterarStatus : Sim
+    
+    AlterarStatus : Atualizar statusDeAcesso para inativo
+    AlterarStatus --> SalvarAlteracao
+    
+    SalvarAlteracao : Salvar novo status na base de dados
+    SalvarAlteracao --> PersistirTrilha
+    
+    PersistirTrilha : Persistir Trilha de Auditoria no RegistroDeHistorico
+    PersistirTrilha --> RetornarSucesso
+    
+    RetornarSucesso : Retornar Mensagem de Sucesso
+
+    RetornarErroInativa --> Fim
+    RetornarSucesso --> Fim
+    
+    Fim --> [*]
